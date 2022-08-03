@@ -7,26 +7,6 @@ namespace MembershipMangement.Data
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new PersonContext(
-                serviceProvider.GetRequiredService<
-                    DbContextOptions<PersonContext>>()))
-            {
-                // Look for any movies.
-                if (context.Person.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-                context.Person.AddRange(
-                    new Person
-                    {
-                        FirstName = "John",
-                        SurName = "Doe",
-                        EmailId = "JohnDoe@t.com"
-                    }
-                );
-                context.SaveChanges();
-            }
             using (var context = new MembershipContext(
                 serviceProvider.GetRequiredService<
                     DbContextOptions<MembershipContext>>()))

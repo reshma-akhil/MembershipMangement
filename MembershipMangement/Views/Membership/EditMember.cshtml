@@ -1,0 +1,81 @@
+﻿@using MembershipMangement.Models
+@model MembershipMangement.Models.Person
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "EditMember";
+    Layout = "_Layout";
+}
+
+<h1>EditMember</h1>
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditMember">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SurName" class="control-label"></label>
+                <input asp-for="SurName" class="form-control" />
+                <span asp-validation-for="SurName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailId" class="control-label"></label>
+                <input asp-for="EmailId" class="form-control" />
+                <span asp-validation-for="EmailId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div><div>
+    <span>Membership Details</span>
+    <a asp-action="CreateMembership" asp-route-id="@Model.Id" asp-route-type="None">Create Membership</a>
+    <table  class="table">
+    <thead>
+        <tr>
+            <th>
+                Number
+            </th>
+            <th>
+                Type
+            </th>
+             <th>
+                Balance
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Membership membership in @ViewBag.Memberships)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => membership.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => membership.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => membership.Balance)
+                </td>
+                <td> <a asp-action="EditMembership" asp-route-id="@membership.PersonId" asp-route-type="@membership.Type">Edit</a> |</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

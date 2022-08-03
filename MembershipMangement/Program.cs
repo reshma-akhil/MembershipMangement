@@ -3,11 +3,14 @@ using MembershipMangement.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddMvc().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AddPageRoute("/Membership/Index", "");
+});
 builder.Services.AddDbContext<MembershipContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("MembershipContext")));
-builder.Services.AddDbContext<PersonContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MembershipContext")));
+//builder.Services.AddDbContext<PersonContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("MembershipContext")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -36,6 +39,8 @@ app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=PersonHome}/{action=Index}/{id?}");
+    pattern: "{controller=Membership}/{action=Index}/{id?}");
+
+
 
 app.Run();

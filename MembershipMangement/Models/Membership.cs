@@ -6,22 +6,26 @@ namespace MembershipMangement.Models
 {
     public enum MembershipType
     {
+        None,
         Primary,
         Secondary
     }
 
     public class Membership
     {
-       //[Key]
-        //public int Id { get; set; }
+        [Required, Range(1, int.MaxValue, ErrorMessage = "Select member")]
         [Key]
         [ForeignKey("Person")]
         [Column(Order = 1)]
         public int PersonId { get; set; }
+        [Required]
+        [StringLength(20)]
         public string Number { get; set; }
         [Key]
         [Column(Order = 2)]
+        [Required, Range(1, int.MaxValue, ErrorMessage = "Select MembershipType")]
         public MembershipType Type { get; set; } = MembershipType.Primary;
+        [Range(0, 999.99)]
         public decimal Balance { get; set; }
     }
 }
