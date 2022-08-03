@@ -1,0 +1,68 @@
+﻿@model IEnumerable<MembershipMangement.Models.MembershipModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Membership" asp-action="CreateMember">Create Member</a> :: 
+    @*<a asp-controller="Member" asp-action="CreateMembership" asp-route-id="0">Create Membership 1</a> ::*@
+    <a asp-action="CreateMembership" asp-route-id="0" asp-route-type="Primary">Create Membership</a> ::
+    <a href="Membership/CreateMembership/0">Create Membership</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MembershipId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MembershipId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MembershipId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
